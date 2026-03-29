@@ -367,50 +367,72 @@ function checkTense(answer){
     }
 }
 </script>
+import random
+
+# Irregular verbs dictionary
+irregular_verbs = {
+    "eat": ("ate", "eaten"),
+    "go": ("went", "gone"),
+    "see": ("saw", "seen"),
+    "write": ("wrote", "written"),
+    "take": ("took", "taken"),
+    "play": ("played", "played"),  # regular verb example
+    "walk": ("walked", "walked")   # regular verb example
+}
+
+# All 12 tenses templates
+tenses = [
+    ("Simple Present", "{subject} {verb}"),
+    ("Present Continuous", "{subject} am/is/are {verb}ing"),
+    ("Present Perfect", "{subject} have/has {past_participle}"),
+    ("Present Perfect Continuous", "{subject} have/has been {verb}ing"),
+    ("Simple Past", "{subject} {past}"),
+    ("Past Continuous", "{subject} was/were {verb}ing"),
+    ("Past Perfect", "{subject} had {past_participle}"),
+    ("Past Perfect Continuous", "{subject} had been {verb}ing"),
+    ("Simple Future", "{subject} will {verb}"),
+    ("Future Continuous", "{subject} will be {verb}ing"),
+    ("Future Perfect", "{subject} will have {past_participle}"),
+    ("Future Perfect Continuous", "{subject} will have been {verb}ing")
+]
+
+# Function to pick past/past participle
 def get_past_forms(verb):
-    # Irregular verbs dictionary
-    irregular = {
-        "eat": ("ate", "eaten"),
-        "go": ("went", "gone"),
-        "see": ("saw", "seen"),
-        "write": ("wrote", "written"),
-        "take": ("took", "taken")
-    }
+    return irregular_verbs.get(verb, (verb + "ed", verb + "ed"))
 
-    if verb in irregular:
-        return irregular[verb]
-    else:
-        # Regular verbs
-        return (verb + "ed", verb + "ed")
-
-
-def generate_tenses(subject, verb):
+# Function to generate a random quiz question
+def generate_question():
+    subject = random.choice(["I", "You", "He", "She", "They"])
+    verb = random.choice(list(irregular_verbs.keys()))
     past, past_participle = get_past_forms(verb)
+    tense_name, template = random.choice(tenses)
+    sentence = template.format(subject=subject, verb=verb, past=past, past_participle=past_participle)
+    return tense_name, sentence, subject, verb
 
-    print("\n=== PRESENT TENSE ===")
-    print(f"1. Simple Present: {subject} {verb}")
-    print(f"2. Present Continuous: {subject} am/is/are {verb}ing")
-    print(f"3. Present Perfect: {subject} have/has {past_participle}")
-    print(f"4. Present Perfect Continuous: {subject} have/has been {verb}ing")
+# Quiz loop
+score = 0
+num_questions = 5
 
-    print("\n=== PAST TENSE ===")
-    print(f"5. Simple Past: {subject} {past}")
-    print(f"6. Past Continuous: {subject} was/were {verb}ing")
-    print(f"7. Past Perfect: {subject} had {past_participle}")
-    print(f"8. Past Perfect Continuous: {subject} had been {verb}ing")
+print("=== Welcome to the Tense Quiz ===")
+print("Fill in the blanks with the correct tense.\n")
 
-    print("\n=== FUTURE TENSE ===")
-    print(f"9. Simple Future: {subject} will {verb}")
-    print(f"10. Future Continuous: {subject} will be {verb}ing")
-    print(f"11. Future Perfect: {subject} will have {past_participle}")
-    print(f"12. Future Perfect Continuous: {subject} will have been {verb}ing")
+for i in range(num_questions):
+    tense_name, sentence, subject, verb = generate_question()
+    print(f"Question {i+1}: ({tense_name})")
+    
+    # Create a blank
+    blank_sentence = sentence.replace(verb, "_____")
+    user_answer = input(blank_sentence + " ")
+    
+    # Check answer
+    if user_answer.strip().lower() == verb.lower():
+        print("✅ Correct!\n")
+        score += 1
+    else:
+        print(f"❌ Wrong! Correct answer: {verb}\n")
 
-
-# 🔹 User Input (makes it interactive)
-subject = input("Enter subject (I/She/They): ")
-verb = input("Enter verb (base form): ")
-
-generate_tenses(subject, verb)
+print(f"Your final score: {score}/{num_questions}")
+print("Quiz complete! 🎉")
 </body>
 </html>
 </script>
