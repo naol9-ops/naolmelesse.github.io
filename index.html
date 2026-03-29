@@ -324,7 +324,52 @@ function checkQuiz() {
     if(score === 3) result.textContent += " 🎉 Perfect!";
     else if(score === 2) result.textContent += " 👍 Good job!";
     else result.textContent += " ❌ Keep practicing!";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tenses - Interactive Lesson</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.card { padding:20px; margin:20px 0; background:white; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+button { padding:12px; border:none; border-radius:8px; background:linear-gradient(135deg,#4facfe,#00f2fe); color:white; cursor:pointer;}
+#output {margin-top:15px; font-weight:bold; color:#4facfe;}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>English Tenses</h1>
+    <p>Learn and test your knowledge!</p>
+</header>
+
+<section>
+    <div class="card">
+        <h2>Choose the Correct Tense</h2>
+        <p>Complete the sentence: "I ___ football yesterday."</p>
+
+        <button onclick="checkTense('played')">played</button>
+        <button onclick="checkTense('play')">play</button>
+        <button onclick="checkTense('will play')">will play</button>
+
+        <h3 id="output"></h3>
+    </div>
+</section>
+
+<script>
+function checkTense(answer){
+    const output = document.getElementById('output');
+    if(answer === 'played'){
+        output.textContent = "✅ Correct! Past Simple is used for actions completed in the past.";
+    } else {
+        output.textContent = "❌ Try again! Hint: The action happened yesterday (Past Simple).";
+    }
 }
+</script>
+
+</body>
+</html>
 </script>
 
 </body>
