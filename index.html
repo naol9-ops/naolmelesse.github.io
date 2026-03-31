@@ -295,7 +295,7 @@
             <label><input type="radio" name="q3" value="a"> 5</label><br>
             <label><input type="radio" name="q3" value="b"> 6</label><br>
             <label><input type="radio" name="q3" value="c"> 7</label>
-const answers = { q1: 'b', q2: 'a', q3: 'b' };
+<P>const answers = { q1: 'b', q2: 'a', q3: 'b' };
     let score = 0;
     const form = document.getElementById('quizForm');
 
@@ -307,7 +307,7 @@ if(score === 3) result.textContent += " 🎉 Perfect!";
     else result.textContent += " ❌ Keep practicing!"; <P> 
     const result = document.getElementById('quizResult');
     result.textContent = `Your Score: ${score}/3`;
-
+ </P>
             <br>
             <button type="button" onclick="checkQuiz()">Submit Quiz</button>
         </form>
