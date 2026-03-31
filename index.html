@@ -325,7 +325,24 @@
     if(score === 3) result.textContent += " 🎉 Perfect!";
     else if(score === 2) result.textContent += " 👍 Good job!";
     else result.textContent += " ❌ Keep practicing!"; <P>
+/* Mobile styles */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
 
+  .container {
+    flex-direction: column;
+  }
+
+  .product {
+    width: 100%;
+  }
+}
+ img {
+  max-width: 100%;
+  height: auto;
+}
 </style>
 </head>
 
