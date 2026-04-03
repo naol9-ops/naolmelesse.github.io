@@ -343,7 +343,143 @@
       margin: auto;
       background: #f4f4f4;
     }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quiz App</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        text-align: center;
+    }
+    .quiz-container {
+        background: white;
+        width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+        padding: 10px 20px;
+        margin-top: 15px;
+        border: none;
+        background: #3498db;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #2980b9;
+    }
+</style>
+</head>
+<body>
 
+<div class="quiz-container">
+    <h2 id="question">Question text</h2>
+
+    <div>
+        <input type="radio" name="answer" id="a">
+        <label for="a" id="a_text"></label>
+    </div>
+
+    <div>
+        <input type="radio" name="answer" id="b">
+        <label for="b" id="b_text"></label>
+    </div>
+
+    <div>
+        <input type="radio" name="answer" id="c">
+        <label for="c" id="c_text"></label>
+    </div>
+
+    <div>
+        <input type="radio" name="answer" id="d">
+        <label for="d" id="d_text"></label>
+    </div>
+
+    <button onclick="nextQuestion()">Next</button>
+
+    <h3 id="result"></h3>
+</div>
+
+<script>
+const quizData = [
+    {
+        question: "What is the capital of Ethiopia?",
+        a: "Addis Ababa",
+        b: "Adama",
+        c: "Hawassa",
+        d: "Bahir Dar",
+        correct: "a"
+    },
+    {
+        question: "Which element has symbol O?",
+        a: "Gold",
+        b: "Oxygen",
+        c: "Iron",
+        d: "Hydrogen",
+        correct: "b"
+    },
+    {
+        question: "Who developed the periodic table?",
+        a: "Newton",
+        b: "Einstein",
+        c: "Mendeleev",
+        d: "Bohr",
+        correct: "c"
+    }
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+    const q = quizData[current];
+    document.getElementById("question").innerText = q.question;
+    document.getElementById("a_text").innerText = q.a;
+    document.getElementById("b_text").innerText = q.b;
+    document.getElementById("c_text").innerText = q.c;
+    document.getElementById("d_text").innerText = q.d;
+
+    document.querySelectorAll('input[name="answer"]').forEach(el => el.checked = false);
+}
+
+function getAnswer() {
+    let answer;
+    document.querySelectorAll('input[name="answer"]').forEach(el => {
+        if (el.checked) answer = el.id;
+    });
+    return answer;
+}
+
+function nextQuestion() {
+    const answer = getAnswer();
+    if (!answer) return alert("Please select an answer!");
+
+    if (answer === quizData[current].correct) {
+        score++;
+    }
+
+    current++;
+
+    if (current < quizData.length) {
+        loadQuestion();
+    } else {
+        document.querySelector(".quiz-container").innerHTML =
+            `<h2>You scored ${score}/${quizData.length}</h2>
+             <button onclick="location.reload()">Restart</button>`;
+    }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
 </body>
 </html>
 </body>
