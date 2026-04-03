@@ -479,7 +479,92 @@ function nextQuestion() {
 <audio id="clickSound" src="click.mp3"></audio>
 loadQuestion();
 </script>
+<div class="quiz-box">
+  <div class="progress">
+    <div class="progress-bar" id="progress"></div>
+  </div>
 
+  <h2 id="question">Question</h2>
+
+  <div id="answers"></div>
+
+  <button onclick="nextQuestion()">Next</button>
+</div>
+
+<!-- Sounds -->
+<audio id="correct" src="correct.mp3"></audio>
+<audio id="wrong" src="wrong.mp3"></audio>
+
+<script>
+const quiz = [
+  {
+    q: "Capital of Ethiopia?",
+    options: ["Addis Ababa", "Adama", "Hawassa", "Mekelle"],
+    answer: 0
+  },
+  {
+    q: "Symbol of Oxygen?",
+    options: ["O", "Ox", "Og", "On"],
+    answer: 0
+  },
+  {
+    q: "Who made periodic table?",
+    options: ["Newton", "Einstein", "Mendeleev", "Bohr"],
+    answer: 2
+  }
+];
+
+let index = 0;
+let score = 0;
+let selected = null;
+
+function loadQuestion() {
+  const q = quiz[index];
+  document.getElementById("question").innerText = q.q;
+
+  const answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+
+  q.options.forEach((opt, i) => {
+    const div = document.createElement("div");
+    div.classList.add("option");
+    div.innerText = opt;
+
+    div.onclick = () => {
+      selected = i;
+      document.querySelectorAll(".option").forEach(el => el.style.background="rgba(255,255,255,0.2)");
+      div.style.background = "#00ffcc";
+    };
+
+    answersDiv.appendChild(div);
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  let percent = ((index) / quiz.length) * 100;
+  document.getElementById("progress").style.width = percent + "%";
+}
+
+function nextQuestion() {
+  if (selected === null) {
+    alert("Select an answer!");
+    return;
+  }
+
+  if (selected === quiz[index].answer) {
+    score++;
+    document.getElementById("correct").play();
+  } else {
+    document.getElementById("wrong").play();
+  }
+
+  index++;
+  selected = null;
+
+  if (index < quiz.length) {
+    loadQuestion();
 </body>
 </html>
 </body>
